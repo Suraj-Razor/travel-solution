@@ -12,7 +12,7 @@ export default function HomePage() {
             {
                 method: "GET",
                 headers: {
-                    Authorization: "Bearer vpsYRvDCKMUpRhs6Hx6gycrDUd90"
+                    Authorization: "Bearer W0Hkpwhm3xU4UUaXEfHD1jQ2pbbA"
                 }
             }
         );
