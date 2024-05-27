@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 import FlightSearchPage from "./pages/FlightSearchPage.jsx";
 import Template from "./pages/_TemplatePage.jsx";
-import HomePage from "./pages/HomePage.jsx";
+import HomePage from "./pages/HomePage.JSX";
 
 function App() {
     return (
