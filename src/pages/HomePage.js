@@ -1,37 +1,59 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
-    const [originLocationCode, setOriginLocationCode] = useState("");
-    const [destinationLocationCode, setDestinationLocationCode] = useState("");
-    const [date, setDate] = useState("");
+    const [formdata, setFromData] = useState({
+        originLocationCode: "",
+        destinationLocationCode: "",
+        date: ""
+    });
 
+    function updateFormData(key, value) {
+        setFromData({ ...formdata, [key]: value });
+    }
+
+    const navigate = useNavigate();
     return (
         <>
             <label>
                 originLocationCode
                 <input
                     type="text"
-                    value={originLocationCode}
-                    onChange={(e) => setOriginLocationCode(e.target.value)}
+                    value={formdata.originLocationCode}
+                    name="originLocationCode"
+                    onChange={(e) =>
+                        updateFormData(e.target.name, e.target.value)
+                    }
                 />
             </label>
             <label>
                 destinationLocationCode
                 <input
                     type="text"
-                    value={destinationLocationCode}
-                    onChange={(e) => setDestinationLocationCode(e.target.value)}
+                    value={formdata.destinationLocationCode}
+                    name="destinationLocationCode"
+                    onChange={(e) =>
+                        updateFormData(e.target.name, e.target.value)
+                    }
                 />
             </label>
             <label>
                 Date
                 <input
                     type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
+                    value={formdata.date}
+                    name="date"
+                    onChange={(e) =>
+                        updateFormData(e.target.name, e.target.value)
+                    }
                 />
             </label>
-            <button>Search for Flights</button>
+            <button
+                onClick={() => {
+                    navigate("/flights");
+                }}>
+                Search for Flights
+            </button>
         </>
     );
 }

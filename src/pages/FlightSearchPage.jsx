@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useTokenData, useTokenDispatch } from "../contexts/GetToken";
+import { useTokenDispatch } from "../contexts/GetToken";
 
 export default function FlightSearchPage() {
-    let tokenData = useTokenData();
     let getToken = useTokenDispatch();
     const [originLocationCode, setOriginLocationCode] = useState("");
     const [destinationLocationCode, setDestinationLocationCode] = useState("");
@@ -10,10 +9,7 @@ export default function FlightSearchPage() {
     const [searchResult, setSearchResult] = useState([]);
 
     async function search(origin, destination, date, adults = 1) {
-        let token = tokenData.token;
-        if ((tokenData.tokenExpiryEnd - Date.now()) / 1000 / 60 <= 0) {
-            token = await getToken();
-        }
+        let token = await getToken();
         const response = await fetch(
             `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${date}&adults=${adults}`,
             {
@@ -30,7 +26,6 @@ export default function FlightSearchPage() {
 
     return (
         <>
-            <h1>{JSON.stringify(tokenData)}</h1>
             <label>
                 originLocationCode
                 <input
