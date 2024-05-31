@@ -1,7 +1,9 @@
 import React from "react";
 import { ReactTyped } from "react-typed";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
+    const navigate = useNavigate();
     return (
         <div className="">
             <div className="max-w-[800px] mt-[-96px] w-full h-screen mx-auto text-center flex flex-col justify-center">
@@ -24,7 +26,9 @@ export default function Hero() {
                 <p className="md:text-2xl text-xl font-bold text-gray-500">
                     "Your Gateway to the World – Book with Confidence!"
                 </p>
-                <button className="bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black">
+                <button
+                    onClick={() => navigate("/flights")}
+                    className="bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black">
                     Lets Fly
                 </button>
             </div>
