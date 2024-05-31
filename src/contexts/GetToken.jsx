@@ -1,12 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-export const TokenGlobalDataContext = createContext("");
 export const TokenGlobalDispatchContext = createContext("");
-export const TokenValidGlobalDispatchContext = createContext("");
-
-export function useTokenData() {
-    return useContext(TokenGlobalDataContext);
-}
 
 export function useTokenDispatch() {
     return useContext(TokenGlobalDispatchContext);
@@ -15,7 +9,7 @@ export function useTokenDispatch() {
 export function AuthProvider({ children }) {
     let [accessToken, setAccessToken] = useState("");
 
-    async function GetToken() {
+    async function token() {
         const response = await fetch(
             "https://test.api.amadeus.com/v1/security/oauth2/token",
             {
@@ -36,18 +30,25 @@ export function AuthProvider({ children }) {
             token: data.access_token,
             tokenExpiryEnd: Date.now() + data.expires_in * 1000
         });
-        return data.access_token;
+        return data;
+    }
+
+    async function GetToken() {
+        if ((accessToken.tokenExpiryEnd - Date.now()) / 1000 / 60 <= 0) {
+            let data = token();
+            return data.access_token;
+        } else {
+            return accessToken.token;
+        }
     }
     useEffect(() => {
-        GetToken();
+        token();
         // eslint-disable-next-line
     }, []);
 
     return (
-        <TokenGlobalDataContext.Provider value={accessToken}>
-            <TokenGlobalDispatchContext.Provider value={GetToken}>
-                {children}
-            </TokenGlobalDispatchContext.Provider>
-        </TokenGlobalDataContext.Provider>
+        <TokenGlobalDispatchContext.Provider value={GetToken}>
+            {children}
+        </TokenGlobalDispatchContext.Provider>
     );
 }

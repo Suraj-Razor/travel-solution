@@ -5,9 +5,11 @@ import Footer from "../components/Footer";
 export default function Template() {
     return (
         <>
-            <Header />
-            <Outlet />
-            <Footer />
+            <div className="max-w-[1240px] p-4 px-4 justify-between items-center mx-auto">
+                <Header />
+                <Outlet />
+                <Footer />
+            </div>
         </>
     );
 }
