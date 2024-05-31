@@ -5,15 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/GetToken";
+import { IataCode } from "./contexts/AirportCodes";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
-        <AuthProvider>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </AuthProvider>
+        <IataCode>
+            <AuthProvider>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </AuthProvider>
+        </IataCode>
     </React.StrictMode>
 );
 
